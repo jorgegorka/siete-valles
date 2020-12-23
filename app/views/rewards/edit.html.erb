@@ -1,0 +1,15 @@
+<div class="bg-white shadow px-4 py-5 sm:p-6">
+  <div class="md:grid md:grid-cols-3 md:gap-6">
+    <div class="md:col-span-1">
+      <h3 class="text-lg font-medium leading-6 text-gray-900"><%= @reward.name %></h3>
+      <p class="mt-1 text-sm text-gray-500">
+        Rewards are prizes/achievements/milestones that users can obtain usually due to actions performed on your site.
+      </p>
+    </div>
+    <div class="mt-5 md:mt-0 md:col-span-2">
+      <%= form_with model: @reward, url: reward_url(id: @reward.uuid), method: :put do |reward_form| %>
+        <%= render 'form', reward_form: reward_form %>
+      <% end %>
+    </div>
+  </div>
+</div>

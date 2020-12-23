@@ -1,0 +1,14 @@
+<tr class="<%= cycle("bg-white", "bg-gray-50") -%>">
+  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+    <%= reward.name %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+    <%= reward.category %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+    <%= render 'rewards/active', active: reward.active %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+    <%= render 'rewards/actions', reward: reward %>
+  </td>
+</tr>
