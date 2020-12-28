@@ -19,7 +19,13 @@ Check the [documentation available](https://github.com/jorgegorka/gamification/w
 
 ## Examples
 
-[Some examples of use](https://github.com/jorgegorka/gamification/wiki/Examples)
+[Levels](https://github.com/jorgegorka/gamification/wiki/example-levels)
+
+[Badges](https://github.com/jorgegorka/gamification/wiki/example-badges)
+
+[Constrain rules to a specific timeframe](https://github.com/jorgegorka/gamification/wiki/example-activity-for-specific-timeframe)
+
+[Rules with multiple conditions](https://github.com/jorgegorka/gamification/wiki/example-multiple-conditions)
 
 ## Todo
 
