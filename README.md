@@ -1,10 +1,10 @@
 # Gamification
 
-This application will let you gamify any process. It uses a graphql interface that will allow you to integrate it easily with your current application.
+This application will let you gamify any process. You can setup and configure it to your needs using the web interface or using the graphql interface.
 
 The basic structure is like this:
 
-1. **Create rewards.** Currently **badges** and **levels** available.
+1. **Create rewards.** Currently **badges** and **levels** available by default.
 2. **Create events.** Events are actions users have to do like press a like button, add a comment, read a document...
 3. **Add rules.** Rules will dictate how users can earn rewards. For instace a rule can be:
    _A user needs to read 10 documents to gain a badge called "Frequent Reader"_ or
