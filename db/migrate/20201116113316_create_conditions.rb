@@ -6,7 +6,7 @@ class CreateConditions < ActiveRecord::Migration[6.0]
       t.string :uuid, limit: 36, null: false, index: true, unique: true
       t.references :rule
       t.integer :operation
-      t.references :action
+      t.references :event
       t.integer :expression
       t.integer :value
       t.datetime :starts_at

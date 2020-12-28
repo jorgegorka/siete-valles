@@ -1,26 +1,26 @@
 # frozen_string_literal: true
 
 module Mutations
-  module Action
+  module Event
     class Delete < Mutations::BaseMutation
-      graphql_name 'DeleteAction'
+      graphql_name 'DeleteEvent'
 
       argument :id, String, required: true
 
       field :errors, [String], null: true
       field :message, String, null: false
 
-      def resolve(params)
-        action = Actions::Persistence.destroy(params)
+      def resolve(id:)
+        event = Events::Persistence.destroy(id)
 
-        if action.destroyed?
+        if event.destroyed?
           {
             errors: [],
-            message: 'Action was deleted'
+            message: 'Event was deleted'
           }
         else
           {
-            errors: action.errors.full_messages,
+            errors: event.errors.full_messages,
             message: ''
           }
         end

@@ -39,6 +39,7 @@ group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 3.26'
   gem 'database_cleaner'
+  gem 'rails-controller-testing'
   gem 'rspec_junit_formatter'
   gem 'rspec-rails', '~> 4'
   gem 'selenium-webdriver'

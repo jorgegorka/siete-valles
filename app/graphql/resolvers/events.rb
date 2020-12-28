@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 module Resolvers
-  class Actions < Resolvers::Base
-    type '[Types::ActionType]', null: true
+  class Events < Resolvers::Base
+    type '[Types::EventType]', null: true
 
-    description 'Find all actions or filter by name'
+    description 'Find all events or filter by name'
     argument :id, String, required: false, default_value: ''
     argument :name, String, required: false, default_value: ''
 
     def resolve(id:, name:)
-      @db_query = Action
+      @db_query = Event
       filter_uuid(id)
       filter_name(name)
 

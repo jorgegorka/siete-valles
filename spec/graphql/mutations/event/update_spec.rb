@@ -2,19 +2,19 @@
 
 require 'rails_helper'
 
-describe Mutations::Action::Update, type: :request do
-  let(:action) { create(:action) }
+describe Mutations::Event::Update, type: :request do
+  let(:event) { create(:event) }
   let(:query) do
     <<~GQL
       mutation {
-        updateAction (
+        updateEvent (
           input: {
-            id: "#{action.uuid}"
+            id: "#{event.uuid}"
             name: "Wintersun"
             value: 93
           }
         ) {
-          action {
+          event {
             name
             value
           }
@@ -24,10 +24,10 @@ describe Mutations::Action::Update, type: :request do
     GQL
   end
 
-  describe 'update_action' do
+  describe 'update_event' do
     subject do
       post '/graphql', params: { query: query }
-      parse_graphql_response(response.body)['updateAction']['action']
+      parse_graphql_response(response.body)['updateEvent']['event']
     end
 
     it { is_expected.to include 'name' => 'Wintersun' }

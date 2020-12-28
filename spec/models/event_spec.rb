@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Action, type: :model do
+RSpec.describe Event, type: :model do
   it_behaves_like 'uuidable'
 
   it { is_expected.to have_many :activities }

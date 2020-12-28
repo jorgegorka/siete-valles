@@ -5,7 +5,7 @@ class CreateActivities < ActiveRecord::Migration[6.0]
     create_table :activities do |t|
       t.string :uuid, limit: 36, null: false, index: true, unique: true
       t.references :receiver
-      t.references :action
+      t.references :event
       t.integer :value, default: 0
       t.timestamps
     end

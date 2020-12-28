@@ -9,8 +9,7 @@ class RewardsController < ApplicationController
 
   def new; end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @reward = Rewards::Persistence.create(reward_params)

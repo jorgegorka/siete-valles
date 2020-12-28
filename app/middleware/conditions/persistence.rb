@@ -5,9 +5,9 @@ module Conditions
     class << self
       def create(params)
         rule = find_rule(params.delete(:rule_id))
-        if params[:action_id].present?
-          action = find_action(params.delete(:action_id))
-          params[:action_id] = action.id
+        if params[:event_id].present?
+          event = find_event(params.delete(:event_id))
+          params[:event_id] = event.id
         end
         rule.conditions.create(params)
       end
@@ -15,9 +15,9 @@ module Conditions
       def update(params)
         rule = find_rule(params.delete(:rule_id))
         condition = rule.conditions.find_by(uuid: params.delete(:id))
-        if params[:action_id].present?
-          action = find_action(params.delete(:action_id))
-          condition.action_id = action.id
+        if params[:event_id].present?
+          event = find_event(params.delete(:event_id))
+          condition.event_id = event.id
         end
         condition.update(params)
 
@@ -36,8 +36,8 @@ module Conditions
         Rule.find_by(uuid: rule_id)
       end
 
-      def find_action(action_id)
-        Action.find_by(uuid: action_id)
+      def find_event(event_id)
+        Event.find_by(uuid: event_id)
       end
     end
   end

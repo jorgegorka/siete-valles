@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Activity < ApplicationRecord
-  belongs_to :action
+  belongs_to :event
   belongs_to :receiver
 
   after_create :increase_receiver_points

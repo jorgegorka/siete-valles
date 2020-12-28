@@ -6,8 +6,8 @@ describe Conditions::Checker do
   let(:operation) { :counter }
   let(:expression) { :eq }
   let(:value) { 5 }
-  let(:action) { create(:action, name: 'submit-article', value: 2) }
-  let(:condition) { create(:condition, action: action, operation: operation, expression: expression, value: value) }
+  let(:event) { create(:event, name: 'submit-article', value: 2) }
+  let(:condition) { create(:condition, event: event, operation: operation, expression: expression, value: value) }
   let(:receiver) { create(:receiver) }
   let(:evaluator) { described_class.new(condition, receiver) }
 
@@ -22,13 +22,13 @@ describe Conditions::Checker do
         it { is_expected.to be false }
 
         context 'when count equals conditions' do
-          before { 3.times { create(:activity, action: action, receiver: receiver) } }
+          before { 3.times { create(:activity, event: event, receiver: receiver) } }
 
           it { is_expected.to be true }
         end
 
         context 'when count exceed conditions' do
-          before { 6.times { create(:activity, action: action, receiver: receiver) } }
+          before { 6.times { create(:activity, event: event, receiver: receiver) } }
 
           it { is_expected.to be false }
         end
@@ -37,24 +37,24 @@ describe Conditions::Checker do
       context 'when expression is gte' do
         let(:expression) { :gte }
         let(:value) { 3 }
-        let(:action) { create(:action, name: 'submit-article', value: 5) }
+        let(:event) { create(:event, name: 'submit-article', value: 5) }
 
         it { is_expected.to be false }
 
         context 'when count exceed conditions' do
-          before { 4.times { create(:activity, action: action, receiver: receiver, value: action.value) } }
+          before { 4.times { create(:activity, event: event, receiver: receiver, value: event.value) } }
 
           it { is_expected.to be true }
         end
 
         context 'when count is equal than conditions' do
-          before { 3.times { create(:activity, action: action, receiver: receiver, value: action.value) } }
+          before { 3.times { create(:activity, event: event, receiver: receiver, value: event.value) } }
 
           it { is_expected.to be true }
         end
 
         context 'when count is lower than conditions' do
-          before { 1.times { create(:activity, action: action, receiver: receiver, value: action.value) } }
+          before { 1.times { create(:activity, event: event, receiver: receiver, value: event.value) } }
 
           it { is_expected.to be false }
         end
@@ -65,8 +65,8 @@ describe Conditions::Checker do
       let(:operation) { :points }
       let(:activity) {}
 
-      context 'when filtered by action' do
-        let(:action) { create(:action, name: 'add-comment', value: 5) }
+      context 'when filtered by event' do
+        let(:event) { create(:event, name: 'add-comment', value: 5) }
 
         context 'when expression is lt' do
           let(:expression) { :lt }
@@ -75,27 +75,27 @@ describe Conditions::Checker do
           it { is_expected.to be true }
 
           context 'when count exceed conditions' do
-            before { 4.times { create(:activity, action: action, receiver: receiver, value: action.value) } }
+            before { 4.times { create(:activity, event: event, receiver: receiver, value: event.value) } }
 
             it { is_expected.to be false }
           end
 
           context 'when count is equal than conditions' do
-            before { 3.times { create(:activity, action: action, receiver: receiver, value: action.value) } }
+            before { 3.times { create(:activity, event: event, receiver: receiver, value: event.value) } }
 
             it { is_expected.to be false }
           end
 
           context 'when count is lower than conditions' do
-            before { 2.times { create(:activity, action: action, receiver: receiver, value: action.value) } }
+            before { 2.times { create(:activity, event: event, receiver: receiver, value: event.value) } }
 
             it { is_expected.to be true }
           end
         end
       end
 
-      context 'when filter by any action' do
-        let(:condition) { create(:condition, action: nil, operation: operation, expression: expression, value: value) }
+      context 'when filter by any event' do
+        let(:condition) { create(:condition, event: nil, operation: operation, expression: expression, value: value) }
 
         context 'when expression is gt' do
           let(:expression) { :gt }
@@ -125,16 +125,16 @@ describe Conditions::Checker do
     end
 
     context 'with date constraints' do
-      let(:condition) { create(:condition, action: action, operation: operation, expression: expression, value: value, starts_at: 3.days.ago.beginning_of_day, ends_at: 8.days.from_now.end_of_day) }
+      let(:condition) { create(:condition, event: event, operation: operation, expression: expression, value: value, starts_at: 3.days.ago.beginning_of_day, ends_at: 8.days.from_now.end_of_day) }
 
       context 'when activities in time period fullfil condition' do
-        before { 5.times { create(:activity, action: action, receiver: receiver) } }
+        before { 5.times { create(:activity, event: event, receiver: receiver) } }
 
         it { is_expected.to be true }
       end
 
       context 'when activities in time period do not fullfil condition' do
-        before { 5.times { create(:activity, action: action, receiver: receiver, created_at: 1.month.ago) } }
+        before { 5.times { create(:activity, event: event, receiver: receiver, created_at: 1.month.ago) } }
 
         it { is_expected.to be false }
       end

@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :activity do
     receiver
-    action
+    event
   end
 end

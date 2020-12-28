@@ -3,7 +3,7 @@
 Achievement.delete_all
 Activity.delete_all
 Receiver.delete_all
-Action.delete_all
+Event.delete_all
 Condition.delete_all
 Rule.delete_all
 Reward.delete_all
@@ -46,22 +46,22 @@ comment3 = Reward.create(
 
 # Actions
 
-add_comment = Action.create(
+add_comment = Event.create(
   name: 'Submit Comment',
   value: 2
 )
 
-Action.create(
+Event.create(
   name: 'Like Post',
   value: 1
 )
 
-Action.create(
+Event.create(
   name: 'Submit Article',
   value: 13
 )
 
-Action.create(
+Event.create(
   name: 'Add Photo To Profile',
   value: 7
 )
@@ -91,7 +91,7 @@ rule3.conditions.create(
 
 rule4 = Rule.create(name: 'At least one comments',reward: comment1)
 rule4.conditions.create(
-  action: add_comment,
+  event: add_comment,
   operation: :counter,
   expression: :eq,
   value: 1
@@ -99,7 +99,7 @@ rule4.conditions.create(
 
 rule5 = Rule.create(name: 'At least 15 comments', reward: comment2)
 rule5.conditions.create(
-  action: add_comment,
+  event: add_comment,
   operation: :counter,
   expression: :eq,
   value: 15
@@ -107,7 +107,7 @@ rule5.conditions.create(
 
 rule6 = Rule.create(name: 'At least 45 comments', reward: comment3)
 rule6.conditions.create(
-  action: add_comment,
+  event: add_comment,
   operation: :counter,
   expression: :eq,
   value: 45

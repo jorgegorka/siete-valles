@@ -7,7 +7,7 @@ describe Resolvers::Activities, type: :request do
     <<~GQL
       query {
         activities {
-          action {
+          event {
             name
           }
           receiver {
@@ -21,7 +21,7 @@ describe Resolvers::Activities, type: :request do
     <<~GQL
       query {
         activities(startsAt: "#{starts_at}", endsAt: "#{ends_at}") {
-          action {
+          event {
             name
           }
           receiver {
@@ -45,9 +45,9 @@ describe Resolvers::Activities, type: :request do
     context 'a generic query' do
       let(:query) { find_all }
 
-      it { is_expected.to match(array_including(a_hash_including('action' => { 'name' => activity1.action.name }))) }
-      it { is_expected.to match(array_including(a_hash_including('action' => { 'name' => activity2.action.name }))) }
-      it { is_expected.to match(array_including(a_hash_including('action' => { 'name' => activity3.action.name }))) }
+      it { is_expected.to match(array_including(a_hash_including('event' => { 'name' => activity1.event.name }))) }
+      it { is_expected.to match(array_including(a_hash_including('event' => { 'name' => activity2.event.name }))) }
+      it { is_expected.to match(array_including(a_hash_including('event' => { 'name' => activity3.event.name }))) }
     end
 
     context 'a query with a date range' do
@@ -55,9 +55,9 @@ describe Resolvers::Activities, type: :request do
       let(:starts_at) { 2.days.ago.beginning_of_day.iso8601 }
       let(:ends_at) { 2.days.from_now.beginning_of_day.iso8601 }
 
-      it { is_expected.to match(array_including(a_hash_including('action' => { 'name' => activity1.action.name }))) }
-      it { is_expected.to match(array_including(a_hash_including('action' => { 'name' => activity2.action.name }))) }
-      it { is_expected.to_not match(array_including(a_hash_including('action' => { 'name' => activity3.action.name }))) }
+      it { is_expected.to match(array_including(a_hash_including('event' => { 'name' => activity1.event.name }))) }
+      it { is_expected.to match(array_including(a_hash_including('event' => { 'name' => activity2.event.name }))) }
+      it { is_expected.to_not match(array_including(a_hash_including('event' => { 'name' => activity3.event.name }))) }
     end
   end
 end

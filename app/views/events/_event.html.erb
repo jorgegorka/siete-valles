@@ -1,0 +1,14 @@
+<tr class="<%= cycle("bg-white", "bg-gray-50") -%>">
+  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+    <%= event.name %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+    <%= event.description %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+    <%= event.value %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+    <%= render 'events/options', event: event %>
+  </td>
+</tr>

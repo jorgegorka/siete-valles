@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Mutations::Condition::Update, type: :request do
-  let(:action) { create(:action) }
+  let(:event) { create(:event) }
   let(:operation) { :points }
   let(:expression) { :lt }
   let(:value) { 72 }
@@ -16,7 +16,7 @@ describe Mutations::Condition::Update, type: :request do
           input: {
             ruleId: "#{rule_id}"
             id: "#{condition.uuid}"
-            actionId: "#{action.uuid}"
+            eventId: "#{event.uuid}"
             operation: "#{operation}"
             expression: "#{expression}"
             value: #{value}
@@ -26,7 +26,7 @@ describe Mutations::Condition::Update, type: :request do
             rule {
               id
             }
-            action {
+            event {
               id
             }
             operation
@@ -45,7 +45,7 @@ describe Mutations::Condition::Update, type: :request do
       parse_graphql_response(response.body)['updateCondition']['condition']
     end
 
-    it { is_expected.to include 'action' => { 'id' => action.uuid } }
+    it { is_expected.to include 'event' => { 'id' => event.uuid } }
     it { is_expected.to include 'operation' => operation.to_s }
     it { is_expected.to include 'expression' => expression.to_s }
     it { is_expected.to include 'value' => value }

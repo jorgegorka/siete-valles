@@ -2,64 +2,74 @@
 
 class ConditionsController < ApplicationController
   before_action :find_condition, only: %i[edit]
+  before_action :events_for_select, only: %i[new create edit update]
+  before_action :find_event_uuid, only: %i[edit]
 
   def index
     @conditions = rule.conditions.order(:reward_id, :name)
   end
 
-  def new; end
+  def new
+    @rule = rule
+  end
 
   def edit
   end
 
+
   def create
     @condition = Conditions::Persistence.create(condition_params)
     if @condition.errors.empty?
-      redirect_to rule_conditions_path(rule_id: rule.uuid), notice: 'Condition created successfully.'
+      redirect_to rule_path(id: rule.uuid), notice: 'Condition created successfully.'
     else
       render partial: 'form'
     end
   end
 
   def update
-    @condition = Conditions::Persistence.update(update_params.merge(id: params[:id]))
+    @condition = Conditions::Persistence.update(condition_params)
 
     if @condition.errors.empty?
-      redirect_to rule_conditions_path(rule_id: rule.uuid), notice: 'Condition updated successfully.'
+      redirect_to rule_path(id: rule.uuid), notice: 'Condition updated successfully.'
     else
       render partial: 'form'
     end
   end
 
   def destroy
-    @condition = Conditions::Persistence.destroy(destroy_params)
+    @condition = Conditions::Persistence.destroy(condition_params)
 
-    if @condition.errors.empty?
-      redirect_to rule_conditions_path(rule_id: rule.uuid), notice: 'Condition deleted successfully.'
-    else
-      redirect_to rule_conditions_path(rule_id: rule.uuid), error: 'Active conditions can not be deleted.'
-    end
+    message = if @condition.errors.empty?
+                { notice: 'Condition deleted successfully.' }
+              else
+                { error: 'Active conditions can not be deleted.' }
+              end
+
+    redirect_to rule_path(id: rule.uuid), message
   end
 
   private
 
   def condition_params
-    params.require(:condition).permit(%i[operation expression value]).merge(rule_id: params[:rule_id])
+    params.permit(%i[id rule_id event_id operation expression value])
   end
 
-  def update_params
-    condition_params.merge(id: params[:id])
-  end
-
-  def destroy_params
-    params.permit(:rule_id, :id)
-  end
 
   def find_condition
-    @condition = Condition.find_by!(uuid: params[:id])
+    @condition = rule.conditions.find_by!(uuid: params[:id])
   end
 
   def rule
     @rule ||= Rule.find_by!(uuid: params[:rule_id])
+  end
+
+  def events_for_select
+    @events = Event.order(:name).all
+  end
+
+  def find_event_uuid
+    return if @condition&.event_id.blank?
+
+    @event_uuid = Event.find(@condition.event_id).uuid
   end
 end

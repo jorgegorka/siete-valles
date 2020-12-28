@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Mutations::Action::Create, type: :request do
+describe Mutations::Event::Create, type: :request do
   let(:result_info) do
     <<~RESULT
       {
@@ -14,20 +14,20 @@ describe Mutations::Action::Create, type: :request do
   let(:query) do
     <<~GQL
       mutation {
-        createAction (
+        createEvent (
           #{input_params}
         ) {
-          action #{result_info}
+          event #{result_info}
           errors
         }
       }
     GQL
   end
 
-  describe 'create action' do
+  describe 'create event' do
     subject do
       post '/graphql', params: { query: query }
-      parse_graphql_response(response.body)['createAction']
+      parse_graphql_response(response.body)['createEvent']
     end
 
     context 'basic input' do
@@ -42,7 +42,7 @@ describe Mutations::Action::Create, type: :request do
         PARAMS
       end
 
-      it { is_expected.to match(a_hash_including('action' => { 'name' => name, 'value' => value })) }
+      it { is_expected.to match(a_hash_including('event' => { 'name' => name, 'value' => value })) }
       it { is_expected.to include 'errors' => [] }
     end
   end

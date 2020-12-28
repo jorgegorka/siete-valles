@@ -6,7 +6,7 @@ RSpec.describe Condition, type: :model do
   it_behaves_like 'uuidable'
 
   it { is_expected.to belong_to :rule }
-  it { is_expected.to belong_to(:action).optional }
+  it { is_expected.to belong_to(:event).optional }
 
   it { is_expected.to validate_presence_of(:operation) }
   it { is_expected.to validate_presence_of(:expression) }

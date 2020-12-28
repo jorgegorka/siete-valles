@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Types
-  class ActionType < Types::BaseObject
+  class EventType < Types::BaseObject
     field :id, String, null: false, method: :uuid
     field :name, String, null: false
     field :value, Integer, null: false

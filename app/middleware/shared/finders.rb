@@ -12,8 +12,8 @@ module Shared
       Reward.find_by(uuid: reward_id)
     end
 
-    def find_action(action_id)
-      Action.find_by(uuid: action_id)
+    def find_event(event_id)
+      Event.find_by(uuid: event_id)
     end
   end
 end

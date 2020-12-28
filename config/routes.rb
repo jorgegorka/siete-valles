@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :dashboard, only: %i[index]
-  resources :actions
+  resources :events
   resources :rules do
     resources :conditions
   end

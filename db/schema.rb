@@ -24,24 +24,14 @@ ActiveRecord::Schema.define(version: 2020_11_17_163338) do
     t.index ["uuid"], name: "index_achievements_on_uuid"
   end
 
-  create_table "actions", charset: "utf8", force: :cascade do |t|
-    t.string "uuid", limit: 36, null: false
-    t.string "name", limit: 50, null: false
-    t.text "description"
-    t.integer "value", default: 0, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["uuid"], name: "index_actions_on_uuid"
-  end
-
   create_table "activities", charset: "utf8", force: :cascade do |t|
     t.string "uuid", limit: 36, null: false
     t.bigint "receiver_id"
-    t.bigint "action_id"
+    t.bigint "event_id"
     t.integer "value", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["action_id"], name: "index_activities_on_action_id"
+    t.index ["event_id"], name: "index_activities_on_event_id"
     t.index ["receiver_id"], name: "index_activities_on_receiver_id"
     t.index ["uuid"], name: "index_activities_on_uuid"
   end
@@ -50,16 +40,26 @@ ActiveRecord::Schema.define(version: 2020_11_17_163338) do
     t.string "uuid", limit: 36, null: false
     t.bigint "rule_id"
     t.integer "operation"
-    t.bigint "action_id"
+    t.bigint "event_id"
     t.integer "expression"
     t.integer "value"
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["action_id"], name: "index_conditions_on_action_id"
+    t.index ["event_id"], name: "index_conditions_on_event_id"
     t.index ["rule_id"], name: "index_conditions_on_rule_id"
     t.index ["uuid"], name: "index_conditions_on_uuid"
+  end
+
+  create_table "events", charset: "utf8", force: :cascade do |t|
+    t.string "uuid", limit: 36, null: false
+    t.string "name", limit: 50, null: false
+    t.text "description"
+    t.integer "value", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["uuid"], name: "index_events_on_uuid"
   end
 
   create_table "receivers", charset: "utf8", force: :cascade do |t|

@@ -6,7 +6,7 @@ module Mutations
       graphql_name 'CreateActivity'
 
       argument :receiver_id, String, required: true
-      argument :action_id, String, required: true
+      argument :event_id, String, required: true
 
       field :errors, [String], null: true
       field :activity, Types::ActivityType, null: true

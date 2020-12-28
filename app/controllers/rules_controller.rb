@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
 class RulesController < ApplicationController
-  before_action :find_rule, only: %i[edit]
+  before_action :find_rule, only: %i[show edit]
+  before_action :rewards_for_select, only: %i[new create edit update]
 
   def index
     @rules = Rule.order(:reward_id, :name)
   end
 
+  def show; end
+
   def new; end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @rule = Rules::Persistence.create(rule_params)
@@ -56,5 +58,9 @@ class RulesController < ApplicationController
 
   def find_rule
     @rule = Rule.find_by!(uuid: params[:id])
+  end
+
+  def rewards_for_select
+    @rewards = Reward.order(:name).all.collect { |reward| [ reward.name, reward.uuid ] }
   end
 end

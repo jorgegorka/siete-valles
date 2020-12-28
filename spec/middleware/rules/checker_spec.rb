@@ -5,10 +5,10 @@ require 'rails_helper'
 describe Rules::Checker do
   let(:receiver) { create(:receiver) }
   let(:rule) { create(:rule) }
-  let(:action) { create(:action, name: 'like-article', value: 1) }
-  let(:action2) { create(:action, name: 'update-profile', value: 100) }
-  let!(:condition) { create(:condition, rule: rule, action: action, operation: :counter, expression: :eq, value: 5) }
-  let!(:condition2) { create(:condition, rule: rule, action: nil, operation: :points, expression: :gte, value: 50) }
+  let(:event) { create(:event, name: 'like-article', value: 1) }
+  let(:event2) { create(:event, name: 'update-profile', value: 100) }
+  let!(:condition) { create(:condition, rule: rule, event: event, operation: :counter, expression: :eq, value: 5) }
+  let!(:condition2) { create(:condition, rule: rule, event: nil, operation: :points, expression: :gte, value: 50) }
   let(:rules_checker) { described_class.new(rule, receiver) }
 
   describe '#apply?' do
@@ -16,8 +16,8 @@ describe Rules::Checker do
 
     context 'when all conditions are valid' do
       before do
-        5.times { create(:activity, action: action, receiver: receiver, value: action.value) }
-        create(:activity, action: action2, receiver: receiver, value: action2.value)
+        5.times { create(:activity, event: event, receiver: receiver, value: event.value) }
+        create(:activity, event: event2, receiver: receiver, value: event2.value)
       end
 
       it { is_expected.to be true }
@@ -25,8 +25,8 @@ describe Rules::Checker do
 
     context 'when some conditions are valid' do
       before do
-        5.times { create(:activity, action: action, receiver: receiver, value: action.value) }
-        create(:activity, action: action2, receiver: receiver, value: 44)
+        5.times { create(:activity, event: event, receiver: receiver, value: event.value) }
+        create(:activity, event: event2, receiver: receiver, value: 44)
       end
 
       it { is_expected.to be false }

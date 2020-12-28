@@ -4,13 +4,13 @@ require 'rails_helper'
 
 describe Conditions::Persistence do
   let(:rule) { create(:rule) }
-  let(:action) { create(:action) }
+  let(:event) { create(:event) }
   let(:operation) { :points }
   let(:expression) { :gt }
   let(:params) do
     {
       rule_id: rule.uuid,
-      action_id: action.uuid,
+      event_id: event.uuid,
       operation: operation,
       expression: :gt,
       value: 175
@@ -26,19 +26,19 @@ describe Conditions::Persistence do
 
       it { expect(subject.operation).to eql 'points' }
       it { expect(subject.expression).to eql 'gt' }
-      it { expect(subject.action).to eq action }
+      it { expect(subject.event).to eq event }
       it { expect(subject.value).to eql 175 }
     end
   end
 
   describe '.update' do
     let(:condition) { create(:condition) }
-    let(:action) { create(:action, name: 'Voivod') }
-    let(:params) { { rule_id: condition.rule.uuid, id: condition.uuid, action_id: action.uuid } }
+    let(:event) { create(:event, name: 'Voivod') }
+    let(:params) { { rule_id: condition.rule.uuid, id: condition.uuid, event_id: event.uuid } }
 
     subject { condition_persistence.update(params) }
 
-    it { expect(subject.action.name).to eql 'Voivod' }
+    it { expect(subject.event.name).to eql 'Voivod' }
   end
 
   describe '.destroy' do

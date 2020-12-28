@@ -5,6 +5,7 @@ require 'rails_helper'
 describe RulesController do
   let(:name) { 'Toundra' }
   let(:reward) { create(:reward) }
+  let(:rule) { create(:rule) }
   let(:params) do
     {
       rule: {
@@ -12,6 +13,24 @@ describe RulesController do
         reward_id: reward.uuid
       }
     }
+  end
+
+  describe '#index' do
+    subject { get :index }
+
+    it { is_expected.to have_http_status :success }
+
+    it { is_expected.to render_template(:index) }
+  end
+
+  describe '#show' do
+    let!(:condition) { create(:condition, rule: rule, event: nil) }
+
+    subject { get :show, params: { id: rule.uuid } }
+
+    it { is_expected.to have_http_status :success }
+
+    it { is_expected.to render_template(:show) }
   end
 
   describe '#new' do
@@ -38,7 +57,6 @@ describe RulesController do
   end
 
   describe '#edit' do
-    let(:rule) { create(:rule) }
     let(:params) { { id: rule.uuid } }
 
     subject { get :new, params: params }

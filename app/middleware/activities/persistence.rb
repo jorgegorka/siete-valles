@@ -7,9 +7,9 @@ module Activities
     class << self
       def create(params)
         receiver = find_receiver(params.delete(:receiver_id))
-        action = find_action(params.delete(:action_id))
+        event = find_event(params.delete(:event_id))
 
-        receiver.activities.create(action: action, value: action_value(action))
+        receiver.activities.create(event: event, value: event_value(event))
       end
 
       def update(_params)
@@ -23,8 +23,8 @@ module Activities
 
       private
 
-      def action_value(action)
-        action&.value || 0
+      def event_value(event)
+        event&.value || 0
       end
     end
   end

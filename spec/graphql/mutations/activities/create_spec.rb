@@ -9,7 +9,7 @@ describe Mutations::Activity::Create, type: :request do
         receiver {
           externalId
         }
-        action {
+        event {
           id
         }
       }
@@ -36,17 +36,17 @@ describe Mutations::Activity::Create, type: :request do
 
     context 'basic input' do
       let(:receiver) { create(:receiver) }
-      let(:action) { create(:action) }
+      let(:event) { create(:event) }
       let(:input_params) do
         <<~PARAMS
           input: {
             receiverId: "#{receiver.uuid}"
-            actionId: "#{action.uuid}"
+            eventId: "#{event.uuid}"
           }
         PARAMS
       end
 
-      it { is_expected.to match(a_hash_including('activity' => a_hash_including('action' => { 'id' => action.uuid }))) }
+      it { is_expected.to match(a_hash_including('activity' => a_hash_including('event' => { 'id' => event.uuid }))) }
       it { is_expected.to match(a_hash_including('activity' => a_hash_including('receiver' => { 'externalId' => receiver.external_id }))) }
       it { is_expected.to include 'errors' => [] }
     end

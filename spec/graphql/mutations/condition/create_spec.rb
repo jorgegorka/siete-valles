@@ -9,7 +9,7 @@ describe Mutations::Condition::Create, type: :request do
         rule {
           id
         }
-        action {
+        event {
           id
         }
         operation
@@ -39,7 +39,7 @@ describe Mutations::Condition::Create, type: :request do
 
     context 'basic input' do
       let(:rule) { create(:rule) }
-      let(:action) { create(:action) }
+      let(:event) { create(:event) }
       let(:operation) { :points }
       let(:expression) { :lt }
       let(:value) { 72 }
@@ -47,7 +47,7 @@ describe Mutations::Condition::Create, type: :request do
         <<~PARAMS
           input: {
             ruleId: "#{rule.uuid}"
-            actionId: "#{action.uuid}"
+            eventId: "#{event.uuid}"
             operation: "#{operation}"
             expression: "#{expression}"
             value: #{value}
@@ -55,7 +55,7 @@ describe Mutations::Condition::Create, type: :request do
         PARAMS
       end
 
-      it { is_expected.to match(a_hash_including('condition' => { 'rule' => { 'id' => rule.uuid }, 'action' => { 'id' => action.uuid }, 'operation' => operation.to_s, 'expression' => expression.to_s, 'value' => value })) }
+      it { is_expected.to match(a_hash_including('condition' => { 'rule' => { 'id' => rule.uuid }, 'event' => { 'id' => event.uuid }, 'operation' => operation.to_s, 'expression' => expression.to_s, 'value' => value })) }
       it { is_expected.to include 'errors' => [] }
     end
   end

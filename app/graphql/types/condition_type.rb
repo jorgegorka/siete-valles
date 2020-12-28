@@ -9,6 +9,6 @@ module Types
     field :value, Integer, null: false
     field :starts_at, GraphQL::Types::ISO8601DateTime, null: true
     field :ends_at, GraphQL::Types::ISO8601DateTime, null: true
-    field :action, Types::ActionType, null: true
+    field :event, Types::EventType, null: true
   end
 end

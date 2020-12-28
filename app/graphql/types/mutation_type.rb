@@ -6,9 +6,9 @@ module Types
     field :update_receiver, mutation: Mutations::Receiver::Update
     field :delete_receiver, mutation: Mutations::Receiver::Delete
     field :create_activity, mutation: Mutations::Activity::Create
-    field :create_action, mutation: Mutations::Action::Create
-    field :update_action, mutation: Mutations::Action::Update
-    field :delete_action, mutation: Mutations::Action::Delete
+    field :create_event, mutation: Mutations::Event::Create
+    field :update_event, mutation: Mutations::Event::Update
+    field :delete_event, mutation: Mutations::Event::Delete
     field :create_reward, mutation: Mutations::Reward::Create
     field :update_reward, mutation: Mutations::Reward::Update
     field :delete_reward, mutation: Mutations::Reward::Delete

@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 
 module Mutations
-  module Action
+  module Event
     class Update < Mutations::BaseMutation
-      graphql_name 'UpdateAction'
+      graphql_name 'UpdateEvent'
 
       argument :id, String, required: true
       argument :name, String, required: true
       argument :value, Integer, required: true
 
       field :errors, [String], null: true
-      field :action, Types::ActionType, null: true
+      field :event, Types::EventType, null: true
 
       def resolve(params)
-        action = Actions::Persistence.update(params)
+        event = Events::Persistence.update(params)
 
         {
-          errors: action.errors.full_messages,
-          action: action
+          errors: event.errors.full_messages,
+          event: event
         }
       end
     end

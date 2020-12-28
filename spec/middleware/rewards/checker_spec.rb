@@ -4,8 +4,8 @@ require 'rails_helper'
 
 describe Rewards::Checker do
   let(:receiver) { create(:receiver) }
-  let(:action) { create(:action, name: 'submit-article', value: 2) }
-  let(:activity) { create(:activity, action: action, receiver: receiver) }
+  let(:event) { create(:event, name: 'submit-article', value: 2) }
+  let(:activity) { create(:activity, event: event, receiver: receiver) }
 
   describe '.acquired' do
     subject { described_class.acquired(activity) }
@@ -13,34 +13,34 @@ describe Rewards::Checker do
     it { is_expected.to be_empty }
 
     context 'when reward conditions are met' do
-      let!(:condition) { create(:condition, action: action, operation: :counter, expression: :gte, value: 3) }
+      let!(:condition) { create(:condition, event: event, operation: :counter, expression: :gte, value: 3) }
       let(:reward) { condition.rule.reward }
 
-      before { 3.times { create(:activity, action: action, receiver: receiver) } }
+      before { 3.times { create(:activity, event: event, receiver: receiver) } }
 
       it { expect(Achievement.first.reward).to eq reward }
     end
 
     context 'when any reward conditions are met' do
-      let!(:condition) { create(:condition, action: action, operation: :counter, expression: :gte, value: 2) }
+      let!(:condition) { create(:condition, event: event, operation: :counter, expression: :gte, value: 2) }
       let(:rule) { condition.rule }
       let(:reward) { condition.rule.reward }
       let(:rule2) { create(:rule, reward: reward) }
-      let!(:condition2) { create(:condition, rule: rule2, action: action, operation: :counter, expression: :gte, value: 12) }
+      let!(:condition2) { create(:condition, rule: rule2, event: event, operation: :counter, expression: :gte, value: 12) }
 
-      before { 3.times { create(:activity, action: action, receiver: receiver) } }
+      before { 3.times { create(:activity, event: event, receiver: receiver) } }
 
       it { expect(Achievement.first.reward).to eq reward }
     end
 
     context 'when none of the reward conditions are met' do
-      let!(:condition) { create(:condition, action: action, operation: :counter, expression: :gte, value: 33) }
+      let!(:condition) { create(:condition, event: event, operation: :counter, expression: :gte, value: 33) }
       let(:rule) { condition.rule }
       let(:reward) { condition.rule.reward }
       let(:rule2) { create(:rule, reward: reward) }
-      let!(:condition2) { create(:condition, rule: rule2, action: action, operation: :counter, expression: :gte, value: 12) }
+      let!(:condition2) { create(:condition, rule: rule2, event: event, operation: :counter, expression: :gte, value: 12) }
 
-      before { 3.times { create(:activity, action: action, receiver: receiver) } }
+      before { 3.times { create(:activity, event: event, receiver: receiver) } }
 
       it { is_expected.to be_empty }
     end
@@ -49,23 +49,23 @@ describe Rewards::Checker do
       let!(:achievement) { create(:achievement, receiver: receiver, reward: reward) }
 
       context 'when conditions are met' do
-        let!(:condition) { create(:condition, action: action, operation: :counter, expression: :gte, value: 2) }
+        let!(:condition) { create(:condition, event: event, operation: :counter, expression: :gte, value: 2) }
         let(:rule) { condition.rule }
         let(:reward) { condition.rule.reward }
         let(:rule2) { create(:rule, reward: reward) }
-        let!(:condition2) { create(:condition, rule: rule2, action: action, operation: :counter, expression: :gte, value: 3) }
+        let!(:condition2) { create(:condition, rule: rule2, event: event, operation: :counter, expression: :gte, value: 3) }
 
-        before { 3.times { create(:activity, action: action, receiver: receiver) } }
+        before { 3.times { create(:activity, event: event, receiver: receiver) } }
 
         it { is_expected.to be_empty }
       end
 
       context 'when conditions are not met' do
-        let!(:condition) { create(:condition, action: action, operation: :counter, expression: :gte, value: 33) }
+        let!(:condition) { create(:condition, event: event, operation: :counter, expression: :gte, value: 33) }
         let(:rule) { condition.rule }
         let(:reward) { condition.rule.reward }
 
-        before { 3.times { create(:activity, action: action, receiver: receiver) } }
+        before { 3.times { create(:activity, event: event, receiver: receiver) } }
 
         it { is_expected.to be_empty }
       end

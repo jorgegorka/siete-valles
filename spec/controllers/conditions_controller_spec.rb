@@ -8,11 +8,9 @@ describe ConditionsController do
   let(:params) do
     {
       rule_id: rule.uuid,
-      condition: {
-        operation: operation,
-        expression: :gte,
-        value: 1
-      }
+      operation: operation,
+      expression: :gte,
+      value: 1
     }
   end
 
@@ -28,6 +26,8 @@ describe ConditionsController do
     subject { post :create, params: params }
 
     it { is_expected.to have_http_status :redirect }
+
+    it { is_expected.to redirect_to rule_path(id: rule.uuid) }
 
     it { expect { subject }.to change { Condition.count }.by(1) }
 
@@ -54,11 +54,13 @@ describe ConditionsController do
     let(:condition) { create(:condition, rule: rule) }
     let(:expression) { :lt }
     let(:condition_uuid) { condition.uuid }
-    let(:params) { { rule_id: rule.uuid, id: condition.uuid, condition: { expression: expression } } }
+    let(:params) { { rule_id: rule.uuid, id: condition.uuid, expression: expression } }
 
     subject { put :update, params: params }
 
     it { is_expected.to have_http_status :redirect }
+
+    it { is_expected.to redirect_to rule_path(id: rule.uuid) }
 
     context 'updated condition' do
       let(:updated_condition) { Condition.find_by(expression: expression) }
@@ -76,6 +78,8 @@ describe ConditionsController do
     subject { delete :destroy, params: params }
 
     it { is_expected.to have_http_status :redirect }
+
+    it { is_expected.to redirect_to rule_path(id: rule.uuid) }
 
     it { expect { subject }.to change { Condition.count }.by(-1) }
   end

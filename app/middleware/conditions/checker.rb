@@ -28,7 +28,7 @@ module Conditions
     end
 
     def total_activities
-      activities.where(action_id: condition.action_id).count
+      activities.where(event_id: condition.event_id).count
     end
 
     def activities_value

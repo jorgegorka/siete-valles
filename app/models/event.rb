@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Action < ApplicationRecord
+class Event < ApplicationRecord
   has_many :activities, dependent: :destroy
 
   validates :name, presence: true

@@ -4,12 +4,12 @@ require 'rails_helper'
 
 describe Activities::Persistence do
   let(:receiver) { create(:receiver, points: 100) }
-  let(:action) { create(:action, value: 7) }
-  let(:action_id) { action.uuid }
+  let(:event) { create(:event, value: 7) }
+  let(:event_id) { event.uuid }
   let(:params) do
     {
       receiver_id: receiver.uuid,
-      action_id: action_id
+      event_id: event_id
     }
   end
   let(:activity_persistence) { described_class }
@@ -17,22 +17,22 @@ describe Activities::Persistence do
   describe '.create' do
     it { expect { activity_persistence.create(params) }.to change { Activity.count }.by(1) }
 
-    context 'when action is present' do
+    context 'when event is present' do
       subject { activity_persistence.create(params) }
 
       it { expect(subject.receiver).to eql receiver }
-      it { expect(subject.action).to eql action }
-      it { expect(subject.value).to eql action.value }
+      it { expect(subject.event).to eql event }
+      it { expect(subject.value).to eql event.value }
       it { expect(subject.reload.receiver.points).to eql 100 + 7 }
     end
 
-    context 'when action is not present' do
-      let(:action_id) {}
+    context 'when event is not present' do
+      let(:event_id) {}
 
       subject { activity_persistence.create(params) }
 
       it { expect(subject.receiver).to eql receiver }
-      it { expect(subject.action).to be_nil }
+      it { expect(subject.event).to be_nil }
     end
   end
 

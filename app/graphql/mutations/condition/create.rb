@@ -9,7 +9,7 @@ module Mutations
       argument :operation, String, required: true
       argument :expression, String, required: true
       argument :value, Integer, required: true
-      argument :action_id, String, required: false
+      argument :event_id, String, required: false
 
       field :errors, [String], null: true
       field :condition, Types::ConditionType, null: true

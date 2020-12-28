@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
 module Mutations
-  module Action
+  module Event
     class Create < Mutations::BaseMutation
-      graphql_name 'CreateAction'
+      graphql_name 'CreateEvent'
 
       argument :name, String, required: true
       argument :value, String, required: true
 
       field :errors, [String], null: true
-      field :action, Types::ActionType, null: true
+      field :event, Types::EventType, null: true
 
       def resolve(params)
-        action = Actions::Persistence.create(params)
+        event = Events::Persistence.create(params)
 
         {
-          action: action,
-          errors: action.errors.full_messages
+          event: event,
+          errors: event.errors.full_messages
         }
       end
     end
