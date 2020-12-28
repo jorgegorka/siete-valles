@@ -11,7 +11,7 @@ The basic structure is like this:
    _A user needs to gain 1000 points to reach Level 2_
 4. **Send activities** Activities are events that users do in a specific moment.
 5. **Done!** Once you start sending activities the app will take care of saving them and checking whether that activity has result in the user winning an award. For instance: If an Event named _press like button_ earns the user 1 point and to reach level 1 you need 100 points.
-   When you send 100 activities of a user doing the event, they will gain the reward.
+   When you send 100 activities of a user doing the event, they will obtain the reward.
 
 ## Structure
 
