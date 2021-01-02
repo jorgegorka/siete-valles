@@ -1,6 +1,10 @@
-# Gamification
+# Siete Valles
 
-This application will let you gamify any process. You can setup and configure it to your needs using the web interface or using the graphql interface.
+Event tracking and gamification application.
+
+Siete Valles (seven valleys) is an open source application that you can use to track important events from your application, mobile or web page.
+
+It includes a powerful rewards/rules system that will let you gamify any process. You can setup and configure it to your needs using the web interface or using the graphql interface.
 
 The basic structure is like this:
 

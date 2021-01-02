@@ -17,13 +17,30 @@ describe Activities::Persistence do
   describe '.create' do
     it { expect { activity_persistence.create(params) }.to change { Activity.count }.by(1) }
 
-    context 'when event is present' do
+    context 'when event value is not set' do
       subject { activity_persistence.create(params) }
 
       it { expect(subject.receiver).to eql receiver }
       it { expect(subject.event).to eql event }
       it { expect(subject.value).to eql event.value }
-      it { expect(subject.reload.receiver.points).to eql 100 + 7 }
+      it { expect(subject.reload.receiver.points).to eql 107 }
+    end
+
+    context 'when event value is set' do
+      let(:params) do
+        {
+          receiver_id: receiver.uuid,
+          event_id: event_id,
+          value: 13
+        }
+      end
+
+      subject { activity_persistence.create(params) }
+
+      it { expect(subject.receiver).to eql receiver }
+      it { expect(subject.event).to eql event }
+      it { expect(subject.value).to eql 13 }
+      it { expect(subject.reload.receiver.points).to eql 113 }
     end
 
     context 'when event is not present' do
@@ -31,8 +48,7 @@ describe Activities::Persistence do
 
       subject { activity_persistence.create(params) }
 
-      it { expect(subject.receiver).to eql receiver }
-      it { expect(subject.event).to be_nil }
+      it { expect(subject.valid?).to be false }
     end
   end
 

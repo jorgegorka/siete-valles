@@ -27,6 +27,21 @@ level3 = Reward.create(
 )
 
 # Badges
+pageview1 = Reward.create(
+  name: 'Viewed 10 pages',
+  category: :badge,
+  description: 'You have visited 10 pages from our website'
+)
+pageview2 = Reward.create(
+  name: 'Viewed 80 pages',
+  category: :badge,
+  description: 'You have visited 80 pages from our website'
+)
+pageview3 = Reward.create(
+  name: 'Viewed 166 pages',
+  category: :badge,
+  description: 'You have visited 166 pages from our website'
+)
 
 comment1 = Reward.create(
   name: 'Comment newbie',
@@ -45,6 +60,11 @@ comment3 = Reward.create(
 )
 
 # Actions
+
+view_page = Event.create(
+  name: 'Pageview',
+  value: 1
+)
 
 add_comment = Event.create(
   name: 'Submit Comment',
@@ -67,6 +87,30 @@ Event.create(
 )
 
 # Rules and conditions
+
+rule_page1 = Rule.create(name: 'More than 10 points', reward: pageview1)
+rule_page1.conditions.create(
+  operation: :points,
+  expression: :gt,
+  value: 10,
+  event: view_page
+)
+
+rule_page2 = Rule.create(name: 'More than 80 points', reward: pageview2)
+rule_page2.conditions.create(
+  operation: :points,
+  expression: :gt,
+  value: 80,
+  event: view_page
+)
+
+rule_page3 = Rule.create(name: 'More than 166 points', reward: pageview3)
+rule_page3.conditions.create(
+  operation: :points,
+  expression: :gt,
+  value: 166,
+  event: view_page
+)
 
 rule1 = Rule.create(name: 'More than 10 points', reward: level1)
 rule1.conditions.create(
@@ -116,3 +160,5 @@ rule6.conditions.create(
 Receiver.create(external_id: 'user-1')
 Receiver.create(external_id: 'user-2')
 Receiver.create(external_id: 'company-1')
+
+Activity.create(receiver_id: receiver_id, event: event, value: value)

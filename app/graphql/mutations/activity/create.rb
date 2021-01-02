@@ -7,6 +7,7 @@ module Mutations
 
       argument :receiver_id, String, required: true
       argument :event_id, String, required: true
+      argument :value, Integer, required: false
 
       field :errors, [String], null: true
       field :activity, Types::ActivityType, null: true

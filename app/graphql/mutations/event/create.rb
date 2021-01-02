@@ -6,7 +6,7 @@ module Mutations
       graphql_name 'CreateEvent'
 
       argument :name, String, required: true
-      argument :value, String, required: true
+      argument :value, Integer, required: true
 
       field :errors, [String], null: true
       field :event, Types::EventType, null: true

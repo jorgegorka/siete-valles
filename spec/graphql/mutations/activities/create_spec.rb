@@ -12,6 +12,7 @@ describe Mutations::Activity::Create, type: :request do
         event {
           id
         }
+        value
       }
     RESULT
   end
@@ -46,9 +47,30 @@ describe Mutations::Activity::Create, type: :request do
         PARAMS
       end
 
-      it { is_expected.to match(a_hash_including('activity' => a_hash_including('event' => { 'id' => event.uuid }))) }
-      it { is_expected.to match(a_hash_including('activity' => a_hash_including('receiver' => { 'externalId' => receiver.external_id }))) }
-      it { is_expected.to include 'errors' => [] }
+      context 'when value is not set' do
+        it { is_expected.to match(a_hash_including('activity' => a_hash_including('event' => { 'id' => event.uuid }))) }
+        it { is_expected.to match(a_hash_including('activity' => a_hash_including('receiver' => { 'externalId' => receiver.external_id }))) }
+        it { is_expected.to match(a_hash_including('activity' => a_hash_including('value' => event.value))) }
+        it { is_expected.to include 'errors' => [] }
+      end
+
+      context 'when value is set' do
+        let(:value) { 42 }
+        let(:input_params) do
+          <<~PARAMS
+          input: {  
+            receiverId: "#{receiver.uuid}"
+            eventId: "#{event.uuid}"
+            value: #{value}
+          }
+          PARAMS
+        end
+
+        it { is_expected.to match(a_hash_including('activity' => a_hash_including('event' => { 'id' => event.uuid }))) }
+        it { is_expected.to match(a_hash_including('activity' => a_hash_including('receiver' => { 'externalId' => receiver.external_id }))) }
+        it { is_expected.to match(a_hash_including('activity' => a_hash_including('value' => value))) }
+        it { is_expected.to include 'errors' => [] }
+      end
     end
   end
 end

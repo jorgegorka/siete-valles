@@ -37,7 +37,7 @@ describe Mutations::Event::Create, type: :request do
         <<~PARAMS
           input: {
             name: "#{name}"
-            value: "#{value}"
+            value: #{value}
           }
         PARAMS
       end
