@@ -34,7 +34,7 @@ describe Achievements::Checker do
       context 'new achievement' do
         before { achievements_checker.new_rewards }
 
-        subject { receiver.achievements }
+        subject { receiver.achievements.all }
 
         it { is_expected.to eq Achievement.all }
       end

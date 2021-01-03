@@ -4,7 +4,7 @@ module Receivers
   class Persistence
     class << self
       def create(params)
-        Receiver.create(params)
+        Receiver.create(external_id: params[:external_id])
       end
 
       def update(params)

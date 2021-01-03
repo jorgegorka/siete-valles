@@ -6,7 +6,7 @@ class Receiver < ApplicationRecord
 
   validates :external_id, presence: true
 
-  def achievement_ids
-    achievements.pluck(:id)
+  def reward_ids
+    achievements.pluck(:reward_id)
   end
 end

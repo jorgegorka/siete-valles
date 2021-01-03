@@ -2,6 +2,6 @@
 
 class AchievementsController < ApplicationController
   def index
-    @achievements = Achievement.order(created_at: :desc)
+    @achievements = Achievement.order(:receiver_id, created_at: :desc)
   end
 end

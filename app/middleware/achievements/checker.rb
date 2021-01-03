@@ -12,7 +12,7 @@ module Achievements
       rewards.each do |reward|
         Achievements::Persistence.create(
           reward_id: reward.uuid,
-          receiver_id: activity.receiver.uuid
+          receiver_id: activity.receiver.external_id
         )
       end
     end

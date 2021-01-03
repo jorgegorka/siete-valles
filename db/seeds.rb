@@ -2,11 +2,11 @@
 
 Achievement.delete_all
 Activity.delete_all
-Receiver.delete_all
 Event.delete_all
 Condition.delete_all
 Rule.delete_all
 Reward.delete_all
+Receiver.delete_all
 
 # Levels
 
@@ -27,6 +27,7 @@ level3 = Reward.create(
 )
 
 # Badges
+
 pageview1 = Reward.create(
   name: 'Viewed 10 pages',
   category: :badge,
@@ -88,25 +89,25 @@ Event.create(
 
 # Rules and conditions
 
-rule_page1 = Rule.create(name: 'More than 10 points', reward: pageview1)
+rule_page1 = Rule.create(name: 'More than 10 pageviews', reward: pageview1)
 rule_page1.conditions.create(
-  operation: :points,
+  operation: :counter,
   expression: :gt,
   value: 10,
   event: view_page
 )
 
-rule_page2 = Rule.create(name: 'More than 80 points', reward: pageview2)
+rule_page2 = Rule.create(name: 'More than 80 pageviews', reward: pageview2)
 rule_page2.conditions.create(
-  operation: :points,
+  operation: :counter,
   expression: :gt,
   value: 80,
   event: view_page
 )
 
-rule_page3 = Rule.create(name: 'More than 166 points', reward: pageview3)
+rule_page3 = Rule.create(name: 'More than 166 pageviews', reward: pageview3)
 rule_page3.conditions.create(
-  operation: :points,
+  operation: :counter,
   expression: :gt,
   value: 166,
   event: view_page
@@ -157,8 +158,9 @@ rule6.conditions.create(
   value: 45
 )
 
-Receiver.create(external_id: 'user-1')
-Receiver.create(external_id: 'user-2')
-Receiver.create(external_id: 'company-1')
+# Activities
 
-Activity.create(receiver_id: receiver_id, event: event, value: value)
+receivers = %i[visitor1 visitor2 visitor3 company1 employee1 employee2]
+events = Event.all
+
+258.times { |i| Activities::Persistence.create(receiver_id: receivers.sample, event_id: events.sample.uuid, value: (i < 30 ? i : 0)) }

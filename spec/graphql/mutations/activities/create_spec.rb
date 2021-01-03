@@ -41,15 +41,33 @@ describe Mutations::Activity::Create, type: :request do
       let(:input_params) do
         <<~PARAMS
           input: {
-            receiverId: "#{receiver.uuid}"
+            receiverId: "#{receiver.external_id}"
             eventId: "#{event.uuid}"
           }
         PARAMS
       end
 
-      context 'when value is not set' do
+
+
         it { is_expected.to match(a_hash_including('activity' => a_hash_including('event' => { 'id' => event.uuid }))) }
         it { is_expected.to match(a_hash_including('activity' => a_hash_including('receiver' => { 'externalId' => receiver.external_id }))) }
+        it { is_expected.to match(a_hash_including('activity' => a_hash_including('value' => event.value))) }
+        it { is_expected.to include 'errors' => [] }
+
+
+      context 'when receiver does not exist' do
+        let(:visitor_id) { "new_visitor" }
+        let(:input_params) do
+          <<~PARAMS
+            input: {      
+              receiverId: "#{visitor_id}"
+              eventId: "#{event.uuid}"  
+            }
+          PARAMS
+        end
+
+        it { is_expected.to match(a_hash_including('activity' => a_hash_including('event' => { 'id' => event.uuid }))) }
+        it { is_expected.to match(a_hash_including('activity' => a_hash_including('receiver' => { 'externalId' => visitor_id }))) }
         it { is_expected.to match(a_hash_including('activity' => a_hash_including('value' => event.value))) }
         it { is_expected.to include 'errors' => [] }
       end
@@ -58,11 +76,11 @@ describe Mutations::Activity::Create, type: :request do
         let(:value) { 42 }
         let(:input_params) do
           <<~PARAMS
-          input: {  
-            receiverId: "#{receiver.uuid}"
-            eventId: "#{event.uuid}"
-            value: #{value}
-          }
+            input: {  
+              receiverId: "#{receiver.external_id}"
+              eventId: "#{event.uuid}"
+              value: #{value}
+            }
           PARAMS
         end
 

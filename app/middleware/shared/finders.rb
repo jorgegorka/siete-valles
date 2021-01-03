@@ -5,7 +5,7 @@ module Shared
     private
 
     def find_receiver(receiver_id)
-      Receiver.find_by(uuid: receiver_id)
+      Receiver.find_or_create_by(external_id: receiver_id)
     end
 
     def find_reward(reward_id)

@@ -18,10 +18,11 @@ describe Rewards::Checker do
 
       before { 3.times { create(:activity, event: event, receiver: receiver) } }
 
-      it { expect(Achievement.first.reward).to eq reward }
+      it { expect(receiver.reward_ids).to eq [Achievement.first.id] }
+      it { expect(Achievement.count).to eq 1 }
     end
 
-    context 'when any reward conditions are met' do
+    context 'when at least one of the reward conditions is met' do
       let!(:condition) { create(:condition, event: event, operation: :counter, expression: :gte, value: 2) }
       let(:rule) { condition.rule }
       let(:reward) { condition.rule.reward }
@@ -30,7 +31,8 @@ describe Rewards::Checker do
 
       before { 3.times { create(:activity, event: event, receiver: receiver) } }
 
-      it { expect(Achievement.first.reward).to eq reward }
+      it { expect(receiver.reward_ids).to eq [Achievement.first.id] }
+      it { expect(Achievement.count).to eq 1 }
     end
 
     context 'when none of the reward conditions are met' do
@@ -43,6 +45,7 @@ describe Rewards::Checker do
       before { 3.times { create(:activity, event: event, receiver: receiver) } }
 
       it { is_expected.to be_empty }
+      it { expect(receiver.reward_ids).to be_empty }
     end
 
     context 'when receiver already has acquired this reward' do
@@ -58,6 +61,7 @@ describe Rewards::Checker do
         before { 3.times { create(:activity, event: event, receiver: receiver) } }
 
         it { is_expected.to be_empty }
+        it { expect(receiver.reward_ids).to eq [Achievement.first.id] }
       end
 
       context 'when conditions are not met' do
@@ -68,6 +72,7 @@ describe Rewards::Checker do
         before { 3.times { create(:activity, event: event, receiver: receiver) } }
 
         it { is_expected.to be_empty }
+        it { expect(receiver.reward_ids).to eq [Achievement.first.id] }
       end
     end
   end

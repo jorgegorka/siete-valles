@@ -6,9 +6,10 @@ describe Activities::Persistence do
   let(:receiver) { create(:receiver, points: 100) }
   let(:event) { create(:event, value: 7) }
   let(:event_id) { event.uuid }
+  let(:receiver_id) { receiver.external_id }
   let(:params) do
     {
-      receiver_id: receiver.uuid,
+      receiver_id: receiver_id,
       event_id: event_id
     }
   end
@@ -26,10 +27,21 @@ describe Activities::Persistence do
       it { expect(subject.reload.receiver.points).to eql 107 }
     end
 
+    context 'when receiver does not exist' do
+      let(:receiver_id) { 'new_visitor' }
+
+      subject { activity_persistence.create(params) }
+
+      it { expect(subject.receiver.external_id).to eql receiver_id }
+      it { expect(subject.event).to eql event }
+      it { expect(subject.value).to eql event.value }
+      it { expect(subject.reload.receiver.points).to eql 7 }
+    end
+
     context 'when event value is set' do
       let(:params) do
         {
-          receiver_id: receiver.uuid,
+          receiver_id: receiver.external_id,
           event_id: event_id,
           value: 13
         }

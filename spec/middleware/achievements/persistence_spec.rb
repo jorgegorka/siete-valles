@@ -7,7 +7,7 @@ describe Achievements::Persistence do
   let(:reward) { create(:reward) }
   let(:params) do
     {
-      receiver_id: receiver.uuid,
+      receiver_id: receiver.external_id,
       reward_id: reward.uuid
     }
   end
