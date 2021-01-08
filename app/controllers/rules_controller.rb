@@ -5,10 +5,12 @@ class RulesController < ApplicationController
   before_action :rewards_for_select, only: %i[new create edit update]
 
   def index
-    @rules = Rule.order(:reward_id, :name)
+    @rules = Rules::Finder.new(finder_params).paginated
   end
 
-  def show; end
+  def show
+    @rule = Rule.find_by(uuid: params[:id])
+  end
 
   def new; end
 
@@ -43,6 +45,10 @@ class RulesController < ApplicationController
   end
 
   private
+
+  def finder_params
+    params.permit(%i[reward_id page limit id])
+  end
 
   def rule_params
     params.require(:rule).permit(%i[name reward_id starts_at ends_at])

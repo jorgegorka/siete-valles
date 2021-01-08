@@ -4,10 +4,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.1'
 
 gem 'bootsnap', '>= 1.4.4', require: false
-gem 'rails', '~> 6.1.0'
 gem 'graphql'
+gem 'kaminari'
 gem 'mysql2'
 gem 'puma', '~> 5.0'
+gem 'rails', '~> 6.1.0'
 gem 'sass-rails', '>= 6'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'

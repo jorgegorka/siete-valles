@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   before_action :find_event, only: %i[edit]
 
   def index
-    @events = Event.order(:name)
+    @events = Event.order(:name).page(params[:page])
   end
 
   def new; end

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :rewards
   resources :activities, only: [:index]
   resources :achievements, only: [:index]
+  resources :receivers
 
   post '/graphql', to: 'graphql#execute'
 

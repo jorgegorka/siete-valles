@@ -14,6 +14,14 @@ describe RewardsController do
     }
   end
 
+  describe '#show' do
+    let(:reward) { create(:reward) }
+
+    subject { get :show, params: { id: reward.uuid } }
+
+    it { is_expected.to have_http_status :success }
+  end
+
   describe '#new' do
     subject { get :new }
 

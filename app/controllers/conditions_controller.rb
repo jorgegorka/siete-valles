@@ -6,7 +6,7 @@ class ConditionsController < ApplicationController
   before_action :find_event_uuid, only: %i[edit]
 
   def index
-    @conditions = rule.conditions.order(:reward_id, :name)
+    @conditions = rule.conditions.order(:reward_id, :name).page(params[:page])
   end
 
   def new

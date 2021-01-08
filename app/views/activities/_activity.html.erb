@@ -1,7 +1,5 @@
 <tr class="<%= cycle("bg-white", "bg-gray-50") -%>">
-  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-    <%= activity.receiver.external_id %>
-  </td>
+  <%= render partial: 'activities/receiver', locals: { activity: activity } unless local_assigns[:hide_receiver] %>
   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
     <%= activity.event.name %>
   </td>
@@ -10,8 +8,5 @@
   </td>
   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
     <%= format_datetime(activity.created_at) %>
-  </td>
-  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-    <%#= render 'activities/options', activity: activity %>
   </td>
 </tr>

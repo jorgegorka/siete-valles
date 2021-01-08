@@ -2,6 +2,6 @@
 
 class ActivitiesController < ApplicationController
   def index
-    @activities = Activity.order(created_at: :desc).limit(50)
+    @activities = Activity.order(created_at: :desc).page(params[:page])
   end
 end

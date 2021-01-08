@@ -4,7 +4,11 @@ class RewardsController < ApplicationController
   before_action :find_reward, only: %i[edit]
 
   def index
-    @rewards = Reward.order(:active, :category, :name)
+    @rewards = Reward.order(:active, :category, :name).page(params[:page])
+  end
+
+  def show
+    @reward = Reward.find_by(uuid: params[:id])
   end
 
   def new; end
