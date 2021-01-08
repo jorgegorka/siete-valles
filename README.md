@@ -1,5 +1,7 @@
 # Siete Valles
 
+![Siete valles dashboard](https://dev-to-uploads.s3.amazonaws.com/i/altqc15um5le4tuaerlt.png)
+
 Event tracking and gamification application.
 
 Siete Valles (seven valleys) is an open source application that you can use to track important events from your application, mobile or web page.
