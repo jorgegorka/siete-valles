@@ -6,7 +6,14 @@ Siete Valles (seven valleys) is an open source application that you can use to t
 
 It includes a powerful rewards/rules system that will let you gamify any process. You can setup and configure it to your needs using the web interface or using the graphql interface.
 
-The basic structure is like this:
+Rules will help you detect important activities or set of activities.
+
+Some Examples:
+
+* You have a course on your intranet and you want to track the progress of your employees.  
+* An E-commerce site wants to know the most engaged customers, tracking activities like who's creating reviews, likes, orders, sharing stuff on social media...
+
+## Structure
 
 1. **Create rewards.** Currently **badges** and **levels** available by default.
 2. **Create events.** Events are actions users have to do like press a like button, add a comment, read a document...
@@ -16,8 +23,6 @@ The basic structure is like this:
 4. **Send activities** Activities are events that users do in a specific moment.
 5. **Done!** Once you start sending activities the app will take care of saving them and checking whether that activity has result in the user winning an award. For instance: If an Event named _press like button_ earns the user 1 point and to reach level 1 you need 100 points.
    When you send 100 activities of a user doing the event, they will obtain the reward.
-
-## Structure
 
 Check the [documentation available](https://github.com/jorgegorka/gamification/wiki).
 
