@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Siete Valles - Event tracking and gamification</title>
+  <meta name="description" content="Event tracking and gamification application. Track all important events from your website or mobile app and keep your users engaged.">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "inter-font", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
+<body class="font-sans antialiased text-gray-900">
+  <div data-controller="sidebar"
+       data-sidebar-show-class="block"
+       data-sidebar-hide-class="hidden"
+       class="h-screen flex overflow-hidden bg-gray-100">
+  <div data-sidebar-target="menu" class="hidden">
+    <div class="fixed inset-0 flex z-40">
+      <div class="fixed inset-0">
+        <div class="absolute inset-0 bg-gray-600 opacity-75"></div>
+      </div>
+      <div class="relative flex-1 flex flex-col max-w-xs w-full bg-gray-800">
+        <div class="absolute top-0 right-0 -mr-12 pt-2">
+          <button
+            data-action="click->sidebar#toggle"
+            class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+            <span class="sr-only">Close menu</span>
+            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
+          <div class="flex-shrink-0 flex justify-center items-center px-4">
+            <h1 class="text-white text-2xl">Siete Valles</h1>
+          </div>
+          <nav class="mt-5 px-2 space-y-1">
+            <%= render 'layouts/menu/items' %>
+          </nav>
+        </div>
+        <div class="flex-shrink-0 flex bg-gray-700 p-4">
+          <a href="#" class="flex-shrink-0 group block">
+            <div class="flex items-center">
+              <div>
+                <img class="inline-block h-10 w-10 rounded-full"
+                     src="https://secure.gravatar.com/avatar/eaf43add0596cf03b75017d5b54c3f7a"
+                     alt="Jorge Alvarez">
+              </div>
+              <div class="ml-3">
+                <p class="text-base font-medium text-white">
+                  Created by
+                </p>
+                <p class="text-sm font-medium text-gray-400 group-hover:text-gray-300">
+                  Jorge Alvarez
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="flex-shrink-0 w-14">
+
+      </div>
+    </div>
+  </div>
+  <div class="hidden md:flex md:flex-shrink-0">
+    <div class="flex flex-col w-64">
+      <div class="flex flex-col h-0 flex-1 bg-gray-800">
+        <div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
+          <div class="flex justify-center items-center flex-shrink-0 px-4">
+            <h1 class="text-white text-2xl">Siete Valles</h1>
+          </div>
+          <nav class="mt-5 flex-1 px-2 bg-gray-800 space-y-1">
+            <%= render 'layouts/menu/items' %>
+          </nav>
+        </div>
+        <div class="flex-shrink-0 flex bg-gray-700 p-4">
+          <a href="https://www.alvareznavarro.es" title="Jorge Alvarez website" class="flex-shrink-0 w-full group block">
+            <div class="flex items-center">
+              <div>
+                <img class="inline-block h-9 w-9 rounded-full"
+                     src="https://secure.gravatar.com/avatar/eaf43add0596cf03b75017d5b54c3f7a"
+                     alt="Jorge Alvarez">
+              </div>
+              <div class="ml-3">
+                <p class="text-xs font-medium text-white">
+                  Created by
+                </p>
+                <p class="text-sm font-medium text-gray-300 group-hover:text-gray-200">
+                  Jorge Alvarez
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col w-0 flex-1 overflow-hidden">
+    <div class="md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3">
+      <button
+        data-action="click->sidebar#toggle"
+        class="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+        <span class="sr-only">Open sidebar</span>
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+             aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+    <main class=" bg-white flex-1 relative z-0 overflow-y-auto focus:outline-none" tabindex="0">
+      <% flash.each do |type, message| %>
+        <%= render 'shared/notice', type: type, message: message %>
+      <% end %>
+      <div class="py-6">
+        <%= yield %>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<div class="bg-white shadow px-4 py-5 sm:p-6">
+  <div class="md:grid md:grid-cols-3 md:gap-6">
+    <div class="md:col-span-1">
+      <h3 class="text-lg font-medium leading-6 text-gray-900">Add a new reward</h3>
+      <p class="mt-1 text-sm text-gray-500">
+        Rewards are prizes/achievements/milestones that users can obtain usually due to actions performed on your site.
+      </p>
+      <p class="mt-1 text-sm text-gray-500">
+        Add a name a description and select the type of reward you want to create.
+      </p>
+    </div>
+    <div class="mt-5 md:mt-0 md:col-span-2">
+      <%= form_with model: Reward.new(category: 0) do |reward_form| %>
+        <%= render 'form', reward_form: reward_form %>
+      <% end %>
+    </div>
+  </div>
+</div>

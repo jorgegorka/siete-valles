@@ -1,0 +1,35 @@
+<div class="mt-4 max-w-lg">
+  <%= reward_form.label :name, class: "block text-sm font-medium text-gray-700" %>
+  <div class="mt-1">
+    <%= reward_form.text_field :name, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"   %>
+  </div>
+</div>
+<div class="mt-4 max-w-lg">
+  <p class="text-sm text-gray-500">Type of reward</p>
+  <div class="mt-2 flex">
+    <div class="flex items-center">
+      <%= reward_form.radio_button :category, "badge", class: "focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" %>
+      <%= reward_form.label :category, "Badge", value: "badge", class: "ml-3 block text-sm font-medium text-gray-700" %>
+    </div>
+    <div class="ml-3 flex items-center">
+      <%= reward_form.radio_button :category, "level", class: "focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" %>
+      <%= reward_form.label :category, "Level", value: "level", class: "ml-3 block text-sm font-medium text-gray-700" %>
+    </div>
+  </div>
+</div>
+<div class="mt-4 space-y-4">
+  <div>
+    <%= reward_form.label :description, class: "block text-sm font-medium text-gray-700" %>
+    <div class="mt-1">
+      <%= reward_form.text_area :description, rows: 3, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+    </div>
+  </div>
+</div>
+<div class="mt-4 flex justify-end pt-2">
+  <%= link_to 'Cancel', rewards_path, class: "inline-flex items-center mr-3 px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500" %>
+  <button
+            type="submit"
+            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+    Save reward
+  </button>
+</div>
