@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
 RSpec.describe Activity, type: :model do
@@ -7,4 +5,13 @@ RSpec.describe Activity, type: :model do
 
   it { is_expected.to belong_to :event }
   it { is_expected.to belong_to :receiver }
+
+  describe 'after create' do
+    let(:activity) { build(:activity) }
+
+    it 'enqueue a job to check for rewards' do
+      expect(AchievementsJob).to receive(:perform_later)
+      activity.save
+    end
+  end
 end

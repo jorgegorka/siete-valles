@@ -1,4 +1,7 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+
   resources :dashboard, only: [:index]
   resources :events
   resources :rules do
@@ -10,6 +13,8 @@ Rails.application.routes.draw do
   resources :receivers
 
   post '/graphql', to: 'graphql#execute'
+
+  mount Sidekiq::Web => '/sidekiq'
 
   root to: 'dashboard#index'
 end

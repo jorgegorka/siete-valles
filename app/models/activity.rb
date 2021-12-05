@@ -19,6 +19,6 @@ class Activity < ApplicationRecord
   end
 
   def check_for_new_rewards
-    Achievements::Checker.new(self).new_rewards
+    AchievementsJob.perform_later(self)
   end
 end
