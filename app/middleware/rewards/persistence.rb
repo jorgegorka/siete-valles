@@ -18,6 +18,6 @@ module Rewards
 
         reward
       end
-  end
+    end
   end
 end
