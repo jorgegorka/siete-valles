@@ -33,6 +33,7 @@ What gamification does is to increase the engagement of users. When users receiv
 Other features:
 
 Add rewards based on a single event: Ex. Get the reward "Sales pro" after watching a video about "How to close sales".
+
 Add rewards based on events performed on a specific timeframe. Ex. Get the reward "Employee of the quarter" to the user that adds more comments to the company's intranet during the third quarter.
 
 ### Documentation
