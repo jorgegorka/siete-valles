@@ -1,24 +1,24 @@
-# README
+![license](https://img.shields.io/github/license/jorgegorka/siete-valles.svg)
+![Code climate](https://img.shields.io/codeclimate/maintainability/jorgegorka/siete-valles.svg)
+[![CircleCI](https://circleci.com/gh/jorgegorka/siete-valles.svg?style=svg)](https://app.circleci.com/projects/project-dashboard/github/jorgegorka/)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Siete Valles
 
-Things you may want to cover:
+## Gamification engine
 
-* Ruby version
+Siete Valles is an event tracking and gamification engine.
 
-* System dependencies
+### Technology
 
-* Configuration
+* Rails 7
+* Graphql
+* Sidekiq
+* TailwindCss
 
-* Database creation
+## Credits
 
-* Database initialization
+Siete Valles has been developed by [Jorge Alvarez](https://www.alvareznavarro.es).
 
-* How to run the test suite
+## License
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Siete Valles is licensed under the MIT License.
