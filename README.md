@@ -40,7 +40,7 @@ Add rewards based on events performed on a specific timeframe. Ex. Get the rewar
 
 You can read all the [documentation in the wiki](https://github.com/jorgegorka/siete-valles/wiki).
 
-### Technology
+### Technology stack
 
 * Rails 7
 * Graphql
