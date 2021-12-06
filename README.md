@@ -8,7 +8,7 @@
 
 With Siete Valles you can easily track user activities like adding a coment, watching a video, visiting a webpage, commiting code to a repository, submiting a form, etc.
 
-You can then "gamify" those activities assigning points or rewards to them. For instance:
+You can then "gamify" those activities by assigning points or rewards to them. For instance:
 
 * Add 2 points to the user everytime they add a new comment.
 * Add the reward "Avid reader" to a user when they click on 10 or more links in our documentation site.
